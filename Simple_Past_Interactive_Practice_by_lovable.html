@@ -1,0 +1,2747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit 2 - Simple Past | Interactive Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       DESIGN TOKENS - Tropical Fun Skin
+       ======================================== */
+    :root {
+      --esl-color-primary: #e85d04;
+      --esl-color-primary-light: #fff3e0;
+      --esl-color-correct: #2e7d32;
+      --esl-color-correct-light: #e8f5e9;
+      --esl-color-incorrect: #c62828;
+      --esl-color-incorrect-light: #ffebee;
+      --esl-color-partial: #f9a825;
+      --esl-color-partial-light: #fffde7;
+      --esl-color-neutral: #5c6b73;
+      --esl-color-bg: linear-gradient(160deg, #fce4ec 0%, #fff8e1 30%, #e8f5e9 60%, #e3f2fd 100%);
+      --esl-color-bg-fallback: #fffaf5;
+      --esl-color-surface: #ffffff;
+      --esl-color-surface-elevated: linear-gradient(145deg, #ffffff 0%, #fffcf5 100%);
+      --esl-color-border: #ffcc80;
+      --esl-color-selected: #ffe0b2;
+      --esl-color-text: #212121;
+      --esl-color-text-light: #616161;
+      --esl-color-hint-bg: #e1f5fe;
+      --esl-color-hint-border: #0288d1;
+      --esl-color-accent: #ab47bc;
+      --esl-color-header-bg: linear-gradient(135deg, #e85d04, #ff8a50, #ffb74d);
+      --esl-color-header-text: #ffffff;
+      --esl-color-card-border: rgba(232, 93, 4, 0.12);
+      --esl-radius-card: 16px;
+      --esl-radius-button: 10px;
+      --esl-radius-input: 8px;
+      --esl-shadow-card: 0 3px 8px rgba(0, 0, 0, 0.06), 0 6px 20px rgba(232, 93, 4, 0.08);
+      --esl-shadow-drag: 0 10px 30px rgba(0, 0, 0, 0.14), 0 3px 8px rgba(0, 0, 0, 0.06);
+      --esl-shadow-hover: 0 8px 24px rgba(232, 93, 4, 0.16);
+      --esl-shadow-inset: inset 0 2px 5px rgba(0, 0, 0, 0.06);
+      --esl-transition-fast: 180ms ease;
+      --esl-transition-med: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+      --esl-touch-target: 46px;
+      --esl-font-main: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      --esl-font-display: 'Inter', 'Segoe UI', sans-serif;
+      --esl-font-size-base: 16px;
+      --esl-font-size-sm: 14px;
+      --esl-font-size-lg: 18px;
+      --esl-font-size-xl: 24px;
+      --esl-anim-bounce-duration: 400ms;
+      --esl-anim-shake-duration: 400ms;
+      --esl-anim-fadein-duration: 350ms;
+      --esl-anim-pulse-duration: 600ms;
+      --esl-anim-confetti-delay: 200ms;
+      --esl-icon-correct: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e7d32' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");
+      --esl-icon-incorrect: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c62828' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E");
+      --esl-icon-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff8a00'%3E%3Cpath d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/%3E%3C/svg%3E");
+      --esl-space-1: 4px;
+      --esl-space-2: 8px;
+      --esl-space-3: 12px;
+      --esl-space-4: 16px;
+      --esl-space-5: 20px;
+      --esl-space-6: 24px;
+    }
+    /* ========================================
+       ESTADOS GLOBAIS
+       ======================================== */
+    .state-correct {
+      border-color: var(--esl-color-correct) !important;
+      background-color: var(--esl-color-correct-light) !important;
+    }
+    .state-incorrect {
+      border-color: var(--esl-color-incorrect) !important;
+      background-color: var(--esl-color-incorrect-light) !important;
+    }
+    .state-partial {
+      border-color: var(--esl-color-partial) !important;
+      background-color: var(--esl-color-partial-light) !important;
+    }
+    .selected {
+      border-color: var(--esl-color-primary) !important;
+      background-color: var(--esl-color-selected) !important;
+    }
+    .hidden {
+      display: none !important;
+    }
+    /* ========================================
+       COMPONENTES GLOBAIS (.esl-*)
+       ======================================== */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: var(--esl-color-bg);
+      background-color: var(--esl-color-bg-fallback);
+      color: var(--esl-color-text);
+      font-family: var(--esl-font-main);
+      font-size: var(--esl-font-size-base);
+      line-height: 1.6;
+      min-height: 100vh;
+      letter-spacing: -0.01em;
+    }
+    .esl-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--esl-space-6) var(--esl-space-4) 96px;
+    }
+    .esl-header {
+      background: var(--esl-color-header-bg);
+      color: var(--esl-color-header-text);
+      border: none;
+      border-radius: var(--esl-radius-card);
+      box-shadow: 0 6px 24px rgba(232, 93, 4, 0.20);
+      padding: 28px 32px;
+      margin-bottom: var(--esl-space-4);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .esl-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 40%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 85% 60%, rgba(255, 255, 255, 0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 50% 100%, rgba(255, 183, 77, 0.20) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .esl-title {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: inherit;
+      font-family: var(--esl-font-display);
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    .esl-subtitle {
+      margin: var(--esl-space-2) 0 0;
+      color: rgba(255, 255, 255, 0.90);
+      font-size: var(--esl-font-size-sm);
+      position: relative;
+      z-index: 1;
+    }
+    .session-progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      background: var(--esl-color-surface);
+      border-radius: 100px;
+      box-shadow: var(--esl-shadow-card);
+      margin: 16px auto;
+      max-width: fit-content;
+      border: 2px solid var(--esl-color-card-border);
+    }
+    .progress-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2.5px solid var(--esl-color-border);
+      background: var(--esl-color-surface);
+      transition: all var(--esl-transition-med);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .progress-dot + .progress-dot::before {
+      content: '';
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      width: 10px;
+      height: 3px;
+      background: var(--esl-color-border);
+      transform: translateY(-50%);
+      border-radius: 2px;
+    }
+    .progress-dot.completed {
+      border-color: var(--esl-color-correct);
+      background: var(--esl-color-correct);
+      animation: esl-dot-complete 600ms ease both;
+    }
+    .progress-dot.completed::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .progress-dot.completed + .progress-dot::before {
+      background: var(--esl-color-correct);
+    }
+    .tab-bar {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: var(--esl-space-2);
+      margin-bottom: var(--esl-space-4);
+      background: var(--esl-color-surface);
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      box-shadow: var(--esl-shadow-card);
+      padding: 6px;
+    }
+    .tab-btn {
+      min-height: var(--esl-touch-target);
+      border: 2px solid transparent;
+      background: transparent;
+      border-radius: var(--esl-radius-button);
+      color: var(--esl-color-text-light);
+      font-weight: 500;
+      font-family: var(--esl-font-main);
+      padding: var(--esl-space-2) var(--esl-space-3);
+      cursor: pointer;
+      transition: all var(--esl-transition-med);
+      position: relative;
+    }
+    .tab-btn:hover,
+    .tab-btn:focus-visible {
+      color: var(--esl-color-primary);
+      background: var(--esl-color-primary-light);
+      border-color: var(--esl-color-border);
+      outline: none;
+    }
+    .tab-btn:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .tab-btn.active {
+      color: var(--esl-color-primary);
+      background: #ffffff;
+      border-color: var(--esl-color-primary);
+      font-weight: 600;
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 20%;
+      right: 20%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--esl-color-primary), #ffb74d);
+      border-radius: 4px;
+    }
+    .tab-content {
+      display: none;
+      background: var(--esl-color-surface-elevated);
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      box-shadow: var(--esl-shadow-card);
+      padding: var(--esl-space-5);
+      min-height: 360px;
+    }
+    .tab-content.active {
+      display: block;
+      animation: esl-fadein var(--esl-anim-fadein-duration) ease both;
+    }
+    .activity-head {
+      margin-bottom: var(--esl-space-4);
+    }
+    .activity-title {
+      margin: 0;
+      font-size: clamp(20px, 3vw, 26px);
+      color: var(--esl-color-primary);
+    }
+    .activity-instruction {
+      margin-top: var(--esl-space-2);
+      color: var(--esl-color-text-light);
+    }
+    .activity-progress {
+      margin: var(--esl-space-2) 0 var(--esl-space-3);
+      color: var(--esl-color-text-light);
+      font-size: var(--esl-font-size-sm);
+      font-weight: 500;
+      background: var(--esl-color-primary-light);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .feedback-inline {
+      min-height: 22px;
+      font-size: var(--esl-font-size-sm);
+      color: var(--esl-color-text-light);
+      margin-top: var(--esl-space-2);
+      font-weight: 500;
+    }
+    .feedback-inline.error {
+      color: var(--esl-color-incorrect);
+    }
+    .feedback-inline.success {
+      color: var(--esl-color-correct);
+    }
+    .esl-btn {
+      min-height: var(--esl-touch-target);
+      border-radius: var(--esl-radius-button);
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-surface);
+      color: var(--esl-color-text);
+      cursor: pointer;
+      font-weight: 600;
+      padding: 12px 24px;
+      transition: all var(--esl-transition-fast);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      letter-spacing: 0.01em;
+    }
+    .esl-btn:hover:not(:disabled),
+    .esl-btn:focus-visible:not(:disabled) {
+      outline: none;
+      border-color: var(--esl-color-primary);
+      background: var(--esl-color-primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--esl-shadow-hover);
+    }
+    .esl-btn:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .esl-btn:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .esl-btn.primary {
+      border-color: var(--esl-color-primary);
+      background: linear-gradient(135deg, var(--esl-color-primary), #ff8a50);
+      color: #ffffff;
+      font-weight: 700;
+      border: none;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    }
+    .esl-btn.primary:hover:not(:disabled),
+    .esl-btn.primary:focus-visible:not(:disabled) {
+      filter: brightness(1.08);
+      background: linear-gradient(135deg, #d84315, var(--esl-color-primary));
+    }
+    .activity-footer {
+      margin-top: var(--esl-space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--esl-space-3);
+      flex-wrap: wrap;
+    }
+    .esl-hint {
+      display: flex;
+      align-items: center;
+      gap: var(--esl-space-2);
+      border: 1px solid var(--esl-color-hint-border);
+      background: var(--esl-color-hint-bg);
+      border-left: 4px solid var(--esl-color-hint-border);
+      border-radius: 0 var(--esl-radius-input) var(--esl-radius-input) 0;
+      padding: var(--esl-space-2) var(--esl-space-3);
+      margin-top: var(--esl-space-2);
+      font-size: var(--esl-font-size-sm);
+      animation: esl-fadein var(--esl-anim-fadein-duration) ease both;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+    .hint-btn,
+    .show-answer-btn {
+      min-height: var(--esl-touch-target);
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-surface);
+      border-radius: var(--esl-radius-button);
+      padding: var(--esl-space-2) var(--esl-space-3);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all var(--esl-transition-fast);
+    }
+    .hint-btn:hover,
+    .show-answer-btn:hover {
+      filter: brightness(0.97);
+      transform: translateY(-1px);
+      border-color: var(--esl-color-primary);
+    }
+    .hint-btn:focus-visible,
+    .show-answer-btn:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .hint-text {
+      margin: 0;
+      color: #01579b;
+      font-weight: 500;
+    }
+    .inline-options {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: var(--esl-space-1);
+      vertical-align: baseline;
+    }
+    .quiz-option {
+      min-height: var(--esl-touch-target);
+      border-radius: var(--esl-radius-button);
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-surface);
+      padding: 12px 32px 12px 16px;
+      cursor: pointer;
+      transition: all var(--esl-transition-fast);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+    .quiz-option[disabled] {
+      cursor: default;
+      opacity: 0.85;
+    }
+    .quiz-option:hover:not(:disabled):not(.state-correct):not(.state-incorrect) {
+      transform: translateX(4px);
+      border-color: var(--esl-color-primary);
+      box-shadow: var(--esl-shadow-hover);
+      background: var(--esl-color-primary-light);
+    }
+    .quiz-option:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .quiz-option.selected {
+      border-color: var(--esl-color-primary) !important;
+      background: var(--esl-color-selected) !important;
+      font-weight: 500;
+    }
+    .quiz-paragraph {
+      font-size: var(--esl-font-size-lg);
+      line-height: 1.9;
+      margin: 0;
+    }
+    .quiz-list {
+      list-style: decimal;
+      margin: 0;
+      padding-left: 24px;
+      display: grid;
+      gap: var(--esl-space-3);
+    }
+    .quiz-list-item {
+      line-height: 1.8;
+    }
+    .true-false-list {
+      display: grid;
+      gap: var(--esl-space-3);
+    }
+    .tf-row {
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      padding: var(--esl-space-3);
+      background: var(--esl-color-surface-elevated);
+      box-shadow: var(--esl-shadow-card);
+      transition: border-color var(--esl-transition-fast);
+    }
+    .tf-row:hover {
+      border-color: var(--esl-color-border);
+    }
+    .tf-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--esl-space-3);
+      flex-wrap: wrap;
+    }
+    .tf-statement {
+      margin: 0;
+      font-weight: 500;
+      flex: 1;
+    }
+    .tf-actions {
+      display: inline-flex;
+      gap: var(--esl-space-2);
+    }
+    .tf-btn {
+      min-height: var(--esl-touch-target);
+      border-radius: var(--esl-radius-button);
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-surface);
+      padding: 0 var(--esl-space-3);
+      cursor: pointer;
+      font-weight: 700;
+      transition: all var(--esl-transition-fast);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    .tf-btn:hover:not(:disabled) {
+      border-color: var(--esl-color-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--esl-shadow-hover);
+    }
+    .tf-btn:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .tf-note {
+      margin-top: var(--esl-space-2);
+      font-size: var(--esl-font-size-sm);
+      color: #01579b;
+      background: var(--esl-color-hint-bg);
+      padding: 6px 10px;
+      border-radius: var(--esl-radius-input);
+    }
+    .tf-correction-wrap {
+      margin-top: var(--esl-space-2);
+    }
+    .tf-correction-wrap label {
+      display: block;
+      font-size: var(--esl-font-size-sm);
+      color: var(--esl-color-text-light);
+      margin-bottom: var(--esl-space-1);
+    }
+    .tf-correction-wrap textarea {
+      width: 100%;
+      min-height: 72px;
+      border-radius: var(--esl-radius-input);
+      border: 2px solid var(--esl-color-border);
+      padding: var(--esl-space-2);
+      font-family: var(--esl-font-main);
+      font-size: var(--esl-font-size-base);
+      resize: vertical;
+      box-shadow: var(--esl-shadow-inset);
+      transition: border-color var(--esl-transition-fast);
+    }
+    .tf-correction-wrap textarea:focus {
+      border-color: var(--esl-color-primary);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--esl-color-primary-light), var(--esl-shadow-inset);
+    }
+    .cloze-example,
+    .gap-example {
+      margin-bottom: var(--esl-space-3);
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-primary-light);
+      border-radius: var(--esl-radius-button);
+      padding: var(--esl-space-3);
+      color: var(--esl-color-text-light);
+      font-style: italic;
+    }
+    .cloze-text {
+      margin: 0;
+      font-size: var(--esl-font-size-lg);
+      line-height: 2.2;
+    }
+    .cloze-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 110px;
+      min-height: var(--esl-touch-target);
+      border: 2px dashed var(--esl-color-border);
+      border-radius: var(--esl-radius-input);
+      margin: 0 var(--esl-space-1);
+      padding: 0 var(--esl-space-2);
+      vertical-align: baseline;
+      background: var(--esl-color-bg-fallback);
+      cursor: pointer;
+      transition: all var(--esl-transition-fast);
+      box-shadow: var(--esl-shadow-inset);
+    }
+    .cloze-slot.filled {
+      border-style: solid;
+      background: var(--esl-color-surface);
+      border-color: var(--esl-color-primary);
+      font-weight: 600;
+    }
+    .cloze-slot.locked {
+      cursor: default;
+    }
+    .cloze-slot.drag-over {
+      transform: scale(1.04);
+      background: var(--esl-color-selected);
+      border-color: var(--esl-color-primary);
+      box-shadow: 0 0 0 4px var(--esl-color-primary-light);
+    }
+    .word-bank {
+      margin-top: var(--esl-space-4);
+      background: var(--esl-color-surface-elevated);
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      padding: 14px 18px;
+      box-shadow: var(--esl-shadow-card);
+    }
+    .word-bank h4 {
+      margin: 0 0 var(--esl-space-2);
+      font-size: var(--esl-font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--esl-color-primary);
+      font-weight: 700;
+    }
+    .word-bank-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--esl-space-2);
+    }
+    .bank-token {
+      min-height: var(--esl-touch-target);
+      border-radius: 100px;
+      border: 2px solid var(--esl-color-primary-light);
+      background: var(--esl-color-surface);
+      padding: 8px 18px;
+      cursor: grab;
+      font-weight: 600;
+      touch-action: none;
+      transition: all var(--esl-transition-fast);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+    .bank-token:hover:not(.used) {
+      transform: translateY(-3px) rotate(-1deg);
+      box-shadow: var(--esl-shadow-hover);
+      border-color: var(--esl-color-primary);
+      background: var(--esl-color-primary-light);
+    }
+    .bank-token:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    .bank-token.used {
+      opacity: 0.35;
+      cursor: default;
+      text-decoration: line-through;
+      border-style: dashed;
+    }
+    .bank-token.dragging {
+      opacity: 0.4;
+      transform: scale(0.92);
+      box-shadow: none;
+    }
+    .dragging {
+      opacity: 0.4;
+    }
+    .drag-ghost {
+      box-shadow: var(--esl-shadow-drag);
+      border-radius: var(--esl-radius-button);
+    }
+    .drag-over {
+      outline: 2px dashed var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    [style*="touch-action"] {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .gap-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--esl-space-3);
+      align-items: start;
+      position: relative;
+    }
+    .gap-reference {
+      border: 2px solid var(--esl-color-border);
+      background: var(--esl-color-primary-light);
+      border-radius: var(--esl-radius-card);
+      padding: var(--esl-space-3);
+      font-size: var(--esl-font-size-sm);
+      color: var(--esl-color-text-light);
+      position: sticky;
+      top: var(--esl-space-3);
+      z-index: 1;
+      box-shadow: var(--esl-shadow-card);
+    }
+    .gap-reference strong {
+      color: var(--esl-color-primary);
+    }
+    .gap-list {
+      display: grid;
+      gap: var(--esl-space-2);
+    }
+    .gap-row {
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      background: var(--esl-color-surface-elevated);
+      padding: var(--esl-space-3);
+      line-height: 2;
+      box-shadow: var(--esl-shadow-card);
+      transition: border-color var(--esl-transition-fast);
+    }
+    .gap-row:hover {
+      border-color: var(--esl-color-border);
+    }
+    .gap-input {
+      width: 110px;
+      min-height: var(--esl-touch-target);
+      border: 2px solid var(--esl-color-border);
+      border-radius: var(--esl-radius-input);
+      padding: 8px 12px;
+      font-size: var(--esl-font-size-base);
+      margin: 0 var(--esl-space-1);
+      background: var(--esl-color-surface);
+      transition: all var(--esl-transition-fast);
+      box-shadow: var(--esl-shadow-inset);
+    }
+    .gap-input:focus {
+      border-color: var(--esl-color-primary);
+      box-shadow: 0 0 0 3px var(--esl-color-primary-light), var(--esl-shadow-inset);
+      outline: none;
+    }
+    .gap-input.short {
+      width: 88px;
+    }
+    .gap-symbol {
+      color: var(--esl-color-primary);
+      margin-left: var(--esl-space-2);
+      font-weight: 700;
+      background: var(--esl-color-primary-light);
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: var(--esl-font-size-sm);
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    #final-result {
+      margin-top: var(--esl-space-4);
+      border: 2px solid var(--esl-color-card-border);
+      border-radius: var(--esl-radius-card);
+      background: var(--esl-color-surface-elevated);
+      box-shadow: var(--esl-shadow-card);
+      padding: 36px;
+      animation: esl-fadein 500ms ease both;
+      text-align: center;
+      position: relative;
+    }
+    #final-result h2 {
+      margin-top: 0;
+      font-family: var(--esl-font-display);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--esl-color-primary);
+    }
+    #final-result h2::after {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      margin-left: 8px;
+      background-image: var(--esl-icon-star);
+      background-repeat: no-repeat;
+      background-size: contain;
+      vertical-align: middle;
+      animation: esl-star-pop 500ms ease both;
+    }
+    .total-score {
+      font-family: var(--esl-font-display);
+      font-size: clamp(34px, 6vw, 50px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--esl-color-primary), #ff8a50, #ffb74d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: esl-pulse var(--esl-anim-pulse-duration) ease infinite;
+      margin: 16px 0;
+    }
+    .motivation-message {
+      font-size: var(--esl-font-size-lg);
+      margin-top: 8px;
+      color: var(--esl-color-text-light);
+      font-weight: 500;
+    }
+    #retry-btn {
+      margin-top: 20px;
+      font-size: var(--esl-font-size-lg);
+      padding: 16px 36px;
+    }
+    .audio-notice {
+      border: 1px solid var(--esl-color-border);
+      border-left: 4px solid var(--esl-color-primary);
+      border-radius: 0 var(--esl-radius-input) var(--esl-radius-input) 0;
+      padding: var(--esl-space-3);
+      margin-top: var(--esl-space-2);
+      display: flex;
+      gap: var(--esl-space-2);
+      align-items: center;
+      background: var(--esl-color-primary-light);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      animation: esl-fadein var(--esl-anim-fadein-duration) ease both;
+    }
+    /* ========================================
+       ANIMACOES
+       ======================================== */
+    @keyframes esl-bounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.10); }
+      60% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    @keyframes esl-shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-7px); }
+      40% { transform: translateX(7px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    @keyframes esl-fadein {
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes esl-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    @keyframes esl-dot-complete {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 var(--esl-color-correct); }
+      50% { transform: scale(1.35); box-shadow: 0 0 0 10px transparent; }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+    }
+    @keyframes esl-correct-glow {
+      0% { box-shadow: 0 0 0 0 var(--esl-color-correct), var(--esl-shadow-card); }
+      50% { box-shadow: 0 0 0 8px rgba(46, 125, 50, 0.18), var(--esl-shadow-card); }
+      100% { box-shadow: 0 0 0 0 transparent, var(--esl-shadow-card); }
+    }
+    @keyframes esl-incorrect-flash {
+      0%, 100% { background-color: var(--esl-color-surface); }
+      30% { background-color: var(--esl-color-incorrect-light); }
+    }
+    @keyframes esl-star-pop {
+      0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+      60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    /* ========================================
+       ESTADOS VISUAIS COM PROFUNDIDADE
+       ======================================== */
+    .state-correct {
+      background-color: var(--esl-color-correct-light) !important;
+      border-color: var(--esl-color-correct) !important;
+      animation: esl-bounce var(--esl-anim-bounce-duration) ease both;
+    }
+    .state-incorrect {
+      background-color: var(--esl-color-incorrect-light) !important;
+      border-color: var(--esl-color-incorrect) !important;
+      animation: esl-shake var(--esl-anim-shake-duration) ease both;
+    }
+    .state-partial {
+      background-color: var(--esl-color-partial-light) !important;
+      border-color: var(--esl-color-partial) !important;
+    }
+    .quiz-option.state-correct,
+    .cloze-slot.state-correct,
+    .gap-input.state-correct,
+    .tf-btn.state-correct {
+      animation: esl-bounce var(--esl-anim-bounce-duration) ease both,
+                 esl-correct-glow 800ms ease 300ms both;
+    }
+    .quiz-option.state-incorrect,
+    .cloze-slot.state-incorrect,
+    .gap-input.state-incorrect,
+    .tf-btn.state-incorrect {
+      animation: esl-shake var(--esl-anim-shake-duration) ease both,
+                 esl-incorrect-flash 600ms ease both;
+    }
+    .quiz-option.state-correct::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--esl-color-correct);
+      background-image: var(--esl-icon-correct);
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-position: center;
+    }
+    .quiz-option.state-incorrect::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--esl-color-incorrect);
+      background-image: var(--esl-icon-incorrect);
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-position: center;
+    }
+    /* ========================================
+       RESPONSIVIDADE
+       ======================================== */
+    @media (min-width: 920px) {
+      .gap-layout {
+        grid-template-columns: 1fr 280px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .tab-content {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+    }
+    @media (max-width: 860px) {
+      .tab-bar {
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+      }
+      .gap-input {
+        width: 95px;
+      }
+    }
+    @media (max-width: 600px) {
+      .esl-shell {
+        padding: var(--esl-space-4) var(--esl-space-3) 72px;
+      }
+      .esl-header {
+        padding: 18px 20px;
+      }
+      .esl-title {
+        font-size: var(--esl-font-size-lg);
+      }
+      .tab-bar {
+        grid-template-columns: 1fr;
+      }
+      .tab-btn {
+        font-size: 12px;
+        padding: 10px 8px;
+      }
+      .tab-content {
+        padding: 16px;
+      }
+      .quiz-paragraph {
+        line-height: 1.7;
+      }
+      .quiz-option {
+        padding: 12px 26px 12px 14px;
+      }
+      .tf-row-top {
+        align-items: flex-start;
+      }
+      .tf-actions {
+        width: 100%;
+      }
+      .tf-btn {
+        flex: 1;
+      }
+      .activity-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .bank-token {
+        padding: 6px 14px;
+        font-size: var(--esl-font-size-sm);
+      }
+    }
+    /* ========================================
+       ACESSIBILIDADE
+       ======================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    *:focus-visible {
+      outline: 3px solid var(--esl-color-primary);
+      outline-offset: 2px;
+    }
+    /* ========================================
+       PRINT STYLESHEET
+       ======================================== */
+    @media print {
+      .tab-bar,
+      .session-progress,
+      button,
+      .audio-notice {
+        display: none;
+      }
+      .tab-content {
+        display: block !important;
+        page-break-after: always;
+      }
+      .state-correct {
+        background: none;
+        border: 2px solid #000;
+      }
+      .state-incorrect {
+        background: none;
+        border: 2px dashed #000;
+      }
+      input {
+        border-bottom: 1px solid #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="esl-shell">
+    <header class="esl-header">
+      <h1 class="esl-title">Unit 2 - Simple Past</h1>
+      <p class="esl-subtitle">A2 - Hybrid PPP/ESA - Interactive Practice Session</p>
+    </header>
+    <nav class="session-progress" aria-label="Activity progress">
+      <span class="progress-dot" data-activity="act-1" aria-label="Activity 1 progress"></span>
+      <span class="progress-dot" data-activity="act-2" aria-label="Activity 2 progress"></span>
+      <span class="progress-dot" data-activity="act-3" aria-label="Activity 3 progress"></span>
+      <span class="progress-dot" data-activity="act-4" aria-label="Activity 4 progress"></span>
+      <span class="progress-dot" data-activity="act-5" aria-label="Activity 5 progress"></span>
+    </nav>
+    <div class="tab-bar" role="tablist" aria-label="Activity tabs">
+      <button class="tab-btn active" data-tab="act-1" role="tab" aria-selected="true" aria-label="Open Activity 1">Activity 1</button>
+      <button class="tab-btn" data-tab="act-2" role="tab" aria-selected="false" aria-label="Open Activity 2">Activity 2</button>
+      <button class="tab-btn" data-tab="act-3" role="tab" aria-selected="false" aria-label="Open Activity 3">Activity 3</button>
+      <button class="tab-btn" data-tab="act-4" role="tab" aria-selected="false" aria-label="Open Activity 4">Activity 4</button>
+      <button class="tab-btn" data-tab="act-5" role="tab" aria-selected="false" aria-label="Open Activity 5">Activity 5</button>
+    </div>
+    <section class="tab-content active" id="act-1" role="tabpanel" aria-label="Activity 1 content">
+      <div class="activity-mount"></div>
+    </section>
+    <section class="tab-content" id="act-2" role="tabpanel" aria-label="Activity 2 content">
+      <div class="activity-mount"></div>
+    </section>
+    <section class="tab-content" id="act-3" role="tabpanel" aria-label="Activity 3 content">
+      <div class="activity-mount"></div>
+    </section>
+    <section class="tab-content" id="act-4" role="tabpanel" aria-label="Activity 4 content">
+      <div class="activity-mount"></div>
+    </section>
+    <section class="tab-content" id="act-5" role="tabpanel" aria-label="Activity 5 content">
+      <div class="activity-mount"></div>
+    </section>
+    <section id="final-result" class="hidden" aria-live="polite">
+      <h2>Session Complete!</h2>
+      <p class="total-score">Total: <strong id="score-display">0 / 0</strong></p>
+      <p class="motivation-message" id="motivation-msg"></p>
+      <button id="retry-btn" class="esl-btn" aria-label="Retry all activities">Try Again</button>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    /* ========================================
+       ESL SPARK ENGINE v1.2.0 - Utilities
+       ======================================== */
+    function normalize(str) {
+      return str
+        .trim()
+        .toLowerCase()
+        .replace(/[.,!?'\"]/g, '')
+        .replace(/\s+/g, ' ');
+    }
+    function isCorrect(userInput, acceptedAnswers) {
+      const n = normalize(userInput);
+      return acceptedAnswers.some((a) => normalize(a) === n);
+    }
+    function isPartial(userInput, correctAnswer) {
+      const u = normalize(userInput);
+      const c = normalize(correctAnswer);
+      return (u.includes(c) || c.includes(u)) && u !== c;
+    }
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function createTimer() {
+      let start = null;
+      return {
+        begin() {
+          start = performance.now();
+        },
+        elapsed() {
+          return start ? Math.round(performance.now() - start) : 0;
+        },
+        reset() {
+          start = null;
+        }
+      };
+    }
+    function fireAttempt(element, detail) {
+      element.dispatchEvent(new CustomEvent('esl:attempt', {
+        bubbles: true,
+        detail: {
+          activity_id: detail.activity_id,
+          item_id: detail.item_id,
+          activity_type: detail.activity_type,
+          renderer: detail.renderer,
+          cefr: detail.cefr,
+          difficulty: detail.difficulty,
+          feedback_mode: detail.feedback_mode,
+          is_correct: detail.is_correct,
+          is_partial: detail.is_partial || false,
+          attempt_number: detail.attempt_number,
+          score: detail.score,
+          max_score: detail.max_score,
+          time_on_item_ms: detail.time_on_item_ms || 0
+        }
+      }));
+    }
+    function createSessionState(activities) {
+      const state = new Map();
+      activities.forEach((a) => {
+        state.set(a.id, {
+          score: 0,
+          max_score: a.max_score,
+          completed: false,
+          attempted: false
+        });
+      });
+      return {
+        update(activityId, score, maxScore, markAttempted = true) {
+          const prev = state.get(activityId) || {
+            score: 0,
+            max_score: maxScore,
+            completed: false,
+            attempted: false
+          };
+          const entry = {
+            score,
+            max_score: maxScore,
+            completed: score >= maxScore * 0.6,
+            attempted: markAttempted ? true : prev.attempted
+          };
+          state.set(activityId, entry);
+          this.refreshProgressBar();
+        },
+        getTotalScore() {
+          let score = 0;
+          let max = 0;
+          state.forEach((v) => {
+            score += v.score;
+            max += v.max_score;
+          });
+          return { score, max };
+        },
+        isAllCompleted() {
+          return [...state.values()].every((v) => v.completed);
+        },
+        isAllAttempted() {
+          return [...state.values()].every((v) => v.attempted);
+        },
+        refreshProgressBar() {
+          document.querySelectorAll('.progress-dot').forEach((dot) => {
+            const id = dot.dataset.activity;
+            const s = state.get(id);
+            dot.classList.toggle('completed', s?.completed || false);
+          });
+        }
+      };
+    }
+    function createAttemptTracker(config) {
+      const attempts = new Map();
+      return {
+        record(itemId) {
+          const count = (attempts.get(itemId) || 0) + 1;
+          attempts.set(itemId, count);
+          return count;
+        },
+        get(itemId) {
+          return attempts.get(itemId) || 0;
+        },
+        isExhausted(itemId) {
+          if (config.attempts_max === null) {
+            return false;
+          }
+          return this.get(itemId) >= config.attempts_max;
+        },
+        shouldShowHint(itemId) {
+          return config.hint &&
+            config.hint.trigger === 'after_first_wrong_attempt' &&
+            this.get(itemId) >= 1;
+        },
+        reset() {
+          attempts.clear();
+        }
+      };
+    }
+    function makeDraggable(element, options) {
+      const { signal, onDragStart, onDragMove, onDragEnd } = options;
+      let isDragging = false;
+      let ghost = null;
+      let offsetX = 0;
+      let offsetY = 0;
+      element.style.touchAction = 'none';
+      element.setAttribute('draggable', 'true');
+      element.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', element.dataset.tokenId);
+        e.dataTransfer.effectAllowed = 'move';
+        element.classList.add('dragging');
+        if (onDragStart) {
+          onDragStart(element, e);
+        }
+      }, { signal });
+      element.addEventListener('dragend', (e) => {
+        element.classList.remove('dragging');
+        if (onDragEnd) {
+          onDragEnd(element, e);
+        }
+      }, { signal });
+      element.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse') {
+          return;
+        }
+        isDragging = true;
+        element.setPointerCapture(e.pointerId);
+        const rect = element.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        ghost = element.cloneNode(true);
+        ghost.classList.add('drag-ghost');
+        ghost.style.position = 'fixed';
+        ghost.style.zIndex = '9999';
+        ghost.style.pointerEvents = 'none';
+        ghost.style.width = `${rect.width}px`;
+        ghost.style.left = `${e.clientX - offsetX}px`;
+        ghost.style.top = `${e.clientY - offsetY}px`;
+        document.body.appendChild(ghost);
+        element.classList.add('dragging');
+        if (onDragStart) {
+          onDragStart(element, e);
+        }
+      }, { signal });
+      element.addEventListener('pointermove', (e) => {
+        if (!isDragging || !ghost) {
+          return;
+        }
+        ghost.style.left = `${e.clientX - offsetX}px`;
+        ghost.style.top = `${e.clientY - offsetY}px`;
+        if (onDragMove) {
+          onDragMove(element, e);
+        }
+      }, { signal });
+      element.addEventListener('pointerup', (e) => {
+        if (!isDragging) {
+          return;
+        }
+        isDragging = false;
+        if (ghost) {
+          ghost.remove();
+          ghost = null;
+        }
+        element.classList.remove('dragging');
+        const dropTarget = document.elementFromPoint(e.clientX, e.clientY);
+        if (onDragEnd) {
+          onDragEnd(element, e, dropTarget);
+        }
+      }, { signal });
+    }
+    function makeDropZone(element, options) {
+      const { signal, accepts, onDrop } = options;
+      element.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        element.classList.add('drag-over');
+      }, { signal });
+      element.addEventListener('dragleave', () => {
+        element.classList.remove('drag-over');
+      }, { signal });
+      element.addEventListener('drop', (e) => {
+        e.preventDefault();
+        element.classList.remove('drag-over');
+        const tokenId = e.dataTransfer.getData('text/plain');
+        if (!tokenId) {
+          return;
+        }
+        if (accepts && !accepts(tokenId, element)) {
+          return;
+        }
+        if (onDrop) {
+          onDrop(tokenId, element, e);
+        }
+      }, { signal });
+    }
+    function prepareActivityContainer(container) {
+      if (container._abortController) {
+        container._abortController.abort();
+      }
+      const controller = new AbortController();
+      container._abortController = controller;
+      container.textContent = '';
+      return {
+        controller,
+        signal: controller.signal
+      };
+    }
+    function createElement(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) {
+        el.className = className;
+      }
+      if (typeof text === 'string') {
+        el.textContent = text;
+      }
+      return el;
+    }
+    function setMessage(node, text, mode) {
+      node.textContent = text;
+      node.classList.remove('error', 'success');
+      if (mode) {
+        node.classList.add(mode);
+      }
+    }
+    function getMotivationMessage(cefr, percentage) {
+      const upper = cefr.toUpperCase();
+      const basic = upper.startsWith('A');
+      if (percentage === 100) {
+        return basic ? 'Perfect! Excellent work!' : 'Flawless! Outstanding!';
+      }
+      if (percentage >= 80) {
+        return basic ? 'Great job! Almost perfect!' : 'Great job! Just a few to review.';
+      }
+      if (percentage >= 60) {
+        return basic ? 'Good effort! Review and try again.' : 'Good progress. Review the tricky ones.';
+      }
+      return basic ? 'Keep practicing! You will get there.' : 'Keep at it! Focus on the hints.';
+    }
+    function buildHintBlock(itemId, hintText, signal) {
+      const wrap = createElement('div', 'esl-hint hidden');
+      wrap.dataset.for = itemId;
+      const hintBtn = createElement('button', 'hint-btn', 'Hint');
+      hintBtn.setAttribute('aria-label', 'Show hint');
+      hintBtn.type = 'button';
+      const hintP = createElement('p', 'hint-text hidden', hintText);
+      const answerBtn = createElement('button', 'show-answer-btn hidden', 'Show Answer');
+      answerBtn.type = 'button';
+      answerBtn.dataset.for = itemId;
+      answerBtn.setAttribute('aria-label', 'Show answer');
+      hintBtn.addEventListener('click', () => {
+        hintP.classList.toggle('hidden');
+      }, { signal });
+      wrap.append(hintBtn, hintP, answerBtn);
+      return {
+        wrap,
+        hintBtn,
+        hintP,
+        answerBtn
+      };
+    }
+    let sessionState = null;
+    let activityConfigs = [];
+    function updateActivityScore(activityId, score, maxScore, markAttempted = true) {
+      sessionState.update(activityId, score, maxScore, markAttempted);
+      maybeRevealFinalResult();
+    }
+    function maybeRevealFinalResult() {
+      if (!sessionState.isAllAttempted()) {
+        return;
+      }
+      const result = sessionState.getTotalScore();
+      const percent = result.max === 0 ? 0 : Math.round((result.score / result.max) * 100);
+      const msg = getMotivationMessage(activityConfigs[0].cefr, percent);
+      const panel = document.getElementById('final-result');
+      const scoreNode = document.getElementById('score-display');
+      const msgNode = document.getElementById('motivation-msg');
+      scoreNode.textContent = `${result.score} / ${result.max}`;
+      msgNode.textContent = msg;
+      panel.classList.remove('hidden');
+    }
+    /* ========================================
+       RENDERERS
+       ======================================== */
+    function renderQuiz(container, config) {
+      const scope = prepareActivityContainer(container);
+      const signal = scope.signal;
+      const tracker = createAttemptTracker(config);
+      const timers = new Map();
+      const solved = new Set();
+      let score = 0;
+      const preparedItems = config.items.map((item) => {
+        if (!config.shuffle) {
+          return item;
+        }
+        const indexed = item.choices.map((choice, idx) => ({ choice, idx }));
+        const shuffled = shuffleArray(indexed);
+        const answerIndex = shuffled.findIndex((entry) => entry.idx === item.answer_index);
+        return {
+          ...item,
+          choices: shuffled.map((entry) => entry.choice),
+          answer_index: answerIndex
+        };
+      });
+      const wrapper = createElement('article', 'quiz-container');
+      wrapper.dataset.activityId = config.id;
+      const head = createElement('header', 'activity-head');
+      const title = createElement('h2', 'activity-title', config.title);
+      const instruction = createElement('p', 'activity-instruction', config.instruction);
+      const progress = createElement('p', 'activity-progress', `0 / ${preparedItems.length} correct`);
+      const feedback = createElement('p', 'feedback-inline');
+      head.append(title, instruction, progress, feedback);
+      wrapper.append(head);
+      const hintMap = new Map();
+      function refreshProgress() {
+        progress.textContent = `${score} / ${preparedItems.length} correct`;
+      }
+      function lockItem(item, itemRoot, selectedBtn) {
+        const opts = itemRoot.querySelectorAll('.quiz-option');
+        opts.forEach((btn) => {
+          btn.disabled = true;
+          if (Number(btn.dataset.index) === item.answer_index) {
+            btn.classList.add('state-correct');
+          }
+        });
+        if (selectedBtn) {
+          selectedBtn.classList.remove('state-incorrect');
+        }
+        const replacement = createElement('strong', '', item.choices[item.answer_index]);
+        replacement.style.color = 'var(--esl-color-correct)';
+        itemRoot.textContent = '';
+        itemRoot.append(replacement);
+      }
+      function handleChoice(item, itemRoot, btn) {
+        if (solved.has(item.id)) {
+          return;
+        }
+        const timer = timers.get(item.id);
+        const selectedIndex = Number(btn.dataset.index);
+        const attemptNumber = tracker.record(item.id);
+        const isRight = selectedIndex === item.answer_index;
+        btn.classList.add('selected');
+        if (isRight) {
+          solved.add(item.id);
+          score += 1;
+          refreshProgress();
+          setMessage(feedback, 'Correct answer.', 'success');
+          lockItem(item, itemRoot, btn);
+        } else {
+          btn.classList.add('state-incorrect');
+          setMessage(feedback, 'Try again.', 'error');
+          window.setTimeout(() => {
+            btn.classList.remove('state-incorrect', 'selected');
+          }, 900);
+          const hintSet = hintMap.get(item.id);
+          if (hintSet && tracker.shouldShowHint(item.id)) {
+            hintSet.wrap.classList.remove('hidden');
+          }
+          if (hintSet && tracker.isExhausted(item.id)) {
+            hintSet.hintBtn.classList.add('hidden');
+            hintSet.answerBtn.classList.remove('hidden');
+          }
+        }
+        fireAttempt(wrapper, {
+          activity_id: config.id,
+          item_id: item.id,
+          activity_type: config.activity_type,
+          renderer: config.renderer,
+          cefr: config.cefr,
+          difficulty: config.difficulty,
+          feedback_mode: config.feedback_mode,
+          is_correct: isRight,
+          is_partial: false,
+          attempt_number: attemptNumber,
+          score,
+          max_score: config.max_score,
+          time_on_item_ms: timer ? timer.elapsed() : 0
+        });
+        updateActivityScore(config.id, score, config.max_score);
+      }
+      function createInlineOptions(item) {
+        const itemWrap = createElement('span', 'inline-options');
+        itemWrap.dataset.itemId = item.id;
+        item.choices.forEach((choice, index) => {
+          const btn = createElement('button', 'quiz-option', choice);
+          btn.type = 'button';
+          btn.dataset.index = String(index);
+          btn.setAttribute('role', item.answer_mode === 'multiple' ? 'checkbox' : 'radio');
+          btn.setAttribute('aria-label', `Option ${index + 1} for ${item.id}`);
+          btn.addEventListener('click', () => {
+            handleChoice(item, itemWrap, btn);
+          }, { signal });
+          itemWrap.append(btn);
+        });
+        const timer = createTimer();
+        timer.begin();
+        timers.set(item.id, timer);
+        const hintConfig = item.hint || config.hint;
+        if (hintConfig && hintConfig.text) {
+          const hintSet = buildHintBlock(item.id, hintConfig.text, signal);
+          hintSet.answerBtn.addEventListener('click', () => {
+            if (solved.has(item.id)) {
+              return;
+            }
+            lockItem(item, itemWrap, null);
+            solved.add(item.id);
+            setMessage(feedback, 'Answer revealed.', 'error');
+            updateActivityScore(config.id, score, config.max_score);
+          }, { signal });
+          hintMap.set(item.id, hintSet);
+        }
+        return itemWrap;
+      }
+      if (config.layout === 'paragraph') {
+        const p = createElement('p', 'quiz-paragraph');
+        preparedItems.forEach((item, i) => {
+          p.append(document.createTextNode(config.paragraph_segments[i]));
+          const slot = createInlineOptions(item);
+          p.append(slot);
+          const hintSet = hintMap.get(item.id);
+          if (hintSet) {
+            p.append(document.createTextNode(' '));
+            p.append(hintSet.wrap);
+          }
+        });
+        p.append(document.createTextNode(config.paragraph_segments[preparedItems.length]));
+        wrapper.append(p);
+      } else {
+        const list = createElement('ol', 'quiz-list');
+        preparedItems.forEach((item) => {
+          const li = createElement('li', 'quiz-list-item');
+          li.append(document.createTextNode(item.lead));
+          const slot = createInlineOptions(item);
+          li.append(slot);
+          if (item.tail) {
+            li.append(document.createTextNode(item.tail));
+          }
+          const hintSet = hintMap.get(item.id);
+          if (hintSet) {
+            li.append(hintSet.wrap);
+          }
+          list.append(li);
+        });
+        wrapper.append(list);
+      }
+      const footer = createElement('footer', 'activity-footer');
+      const resetBtn = createElement('button', 'esl-btn', 'Reset Activity');
+      resetBtn.type = 'button';
+      resetBtn.setAttribute('aria-label', 'Reset quiz activity');
+      const nextBtn = createElement('button', 'esl-btn primary', 'Next Activity');
+      nextBtn.type = 'button';
+      nextBtn.dataset.next = config.next_tab || '';
+      nextBtn.setAttribute('aria-label', 'Go to next activity');
+      resetBtn.addEventListener('click', () => {
+        scope.controller.abort();
+        renderQuiz(container, config);
+        updateActivityScore(config.id, 0, config.max_score, false);
+      }, { signal });
+      nextBtn.addEventListener('click', () => {
+        if (config.next_tab) {
+          activateTab(config.next_tab);
+        }
+      }, { signal });
+      footer.append(resetBtn, nextBtn);
+      wrapper.append(footer);
+      container.append(wrapper);
+      updateActivityScore(config.id, 0, config.max_score, false);
+    }
+    function renderTrueFalse(container, config) {
+      const scope = prepareActivityContainer(container);
+      const signal = scope.signal;
+      const tracker = createAttemptTracker(config);
+      const timers = new Map();
+      const locked = new Set();
+      let score = 0;
+      const wrapper = createElement('article', 'true-false-container');
+      wrapper.dataset.activityId = config.id;
+      const head = createElement('header', 'activity-head');
+      const title = createElement('h2', 'activity-title', config.title);
+      const instruction = createElement('p', 'activity-instruction', config.instruction);
+      const progress = createElement('p', 'activity-progress', `0 / ${config.items.length} correct`);
+      const feedback = createElement('p', 'feedback-inline');
+      head.append(title, instruction, progress, feedback);
+      wrapper.append(head);
+      function refreshProgress() {
+        progress.textContent = `${score} / ${config.items.length} correct`;
+      }
+      const list = createElement('div', 'true-false-list');
+      config.items.forEach((item) => {
+        const timer = createTimer();
+        timer.begin();
+        timers.set(item.id, timer);
+        const row = createElement('article', 'tf-row');
+        row.dataset.itemId = item.id;
+        const rowTop = createElement('div', 'tf-row-top');
+        const text = createElement('p', 'tf-statement', item.text);
+        const actions = createElement('div', 'tf-actions');
+        const btnTrue = createElement('button', 'tf-btn', '✓ Correct');
+        btnTrue.type = 'button';
+        btnTrue.setAttribute('aria-label', `Mark sentence ${item.id} as correct`);
+        const btnFalse = createElement('button', 'tf-btn', '✗ Incorrect');
+        btnFalse.type = 'button';
+        btnFalse.setAttribute('aria-label', `Mark sentence ${item.id} as incorrect`);
+        const note = createElement('p', 'tf-note hidden', item.error_note || '');
+        const correctionWrap = createElement('div', 'tf-correction-wrap hidden');
+        const correctionLabel = createElement('label', '', 'How would you correct it? (Optional - discuss with your teacher)');
+        correctionLabel.setAttribute('for', `${config.id}-${item.id}-fix`);
+        const correctionInput = document.createElement('textarea');
+        correctionInput.id = `${config.id}-${item.id}-fix`;
+        correctionInput.setAttribute('aria-label', `Optional correction for sentence ${item.id}`);
+        correctionWrap.append(correctionLabel, correctionInput);
+        function lockRow() {
+          btnTrue.disabled = true;
+          btnFalse.disabled = true;
+          locked.add(item.id);
+        }
+        function onChoice(userAnswer, clickedBtn, correctBtn) {
+          if (locked.has(item.id)) {
+            return;
+          }
+          const attemptNumber = tracker.record(item.id);
+          const isRight = userAnswer === item.answer;
+          const timerLocal = timers.get(item.id);
+          if (isRight) {
+            clickedBtn.classList.add('state-correct');
+            score += 1;
+            refreshProgress();
+            setMessage(feedback, 'Correct!', 'success');
+            lockRow();
+          } else {
+            clickedBtn.classList.add('state-incorrect');
+            correctBtn.classList.add('state-correct');
+            setMessage(feedback, 'Incorrect. Check the highlighted option.', 'error');
+            window.setTimeout(() => {
+              clickedBtn.classList.remove('state-incorrect');
+              correctBtn.classList.remove('state-correct');
+            }, 1000);
+            if (tracker.isExhausted(item.id)) {
+              lockRow();
+              correctBtn.classList.add('state-correct');
+            }
+          }
+          if (item.answer === false && (isRight || tracker.isExhausted(item.id))) {
+            note.classList.remove('hidden');
+            correctionWrap.classList.remove('hidden');
+          }
+          fireAttempt(wrapper, {
+            activity_id: config.id,
+            item_id: item.id,
+            activity_type: config.activity_type,
+            renderer: config.renderer,
+            cefr: config.cefr,
+            difficulty: config.difficulty,
+            feedback_mode: config.feedback_mode,
+            is_correct: isRight,
+            is_partial: false,
+            attempt_number: attemptNumber,
+            score,
+            max_score: config.max_score,
+            time_on_item_ms: timerLocal ? timerLocal.elapsed() : 0
+          });
+          updateActivityScore(config.id, score, config.max_score);
+        }
+        btnTrue.addEventListener('click', () => {
+          onChoice(true, btnTrue, item.answer ? btnTrue : btnFalse);
+        }, { signal });
+        btnFalse.addEventListener('click', () => {
+          onChoice(false, btnFalse, item.answer ? btnTrue : btnFalse);
+        }, { signal });
+        actions.append(btnTrue, btnFalse);
+        rowTop.append(text, actions);
+        row.append(rowTop, note, correctionWrap);
+        list.append(row);
+      });
+      wrapper.append(list);
+      const footer = createElement('footer', 'activity-footer');
+      const resetBtn = createElement('button', 'esl-btn', 'Reset Activity');
+      resetBtn.type = 'button';
+      resetBtn.setAttribute('aria-label', 'Reset true-false activity');
+      const nextBtn = createElement('button', 'esl-btn primary', 'Next Activity');
+      nextBtn.type = 'button';
+      nextBtn.dataset.next = config.next_tab || '';
+      nextBtn.setAttribute('aria-label', 'Go to next activity');
+      resetBtn.addEventListener('click', () => {
+        scope.controller.abort();
+        renderTrueFalse(container, config);
+        updateActivityScore(config.id, 0, config.max_score, false);
+      }, { signal });
+      nextBtn.addEventListener('click', () => {
+        if (config.next_tab) {
+          activateTab(config.next_tab);
+        }
+      }, { signal });
+      footer.append(resetBtn, nextBtn);
+      wrapper.append(footer);
+      container.append(wrapper);
+      updateActivityScore(config.id, 0, config.max_score, false);
+    }
+    function renderClozeBank(container, config) {
+      const scope = prepareActivityContainer(container);
+      const signal = scope.signal;
+      const tracker = createAttemptTracker(config);
+      const timer = createTimer();
+      timer.begin();
+      const wrapper = createElement('article', 'cloze-container');
+      wrapper.dataset.activityId = config.id;
+      const head = createElement('header', 'activity-head');
+      const title = createElement('h2', 'activity-title', config.title);
+      const instruction = createElement('p', 'activity-instruction', config.instruction);
+      const progress = createElement('p', 'activity-progress', `0 / ${config.max_score} correct`);
+      const feedback = createElement('p', 'feedback-inline');
+      head.append(title, instruction, progress, feedback);
+      wrapper.append(head);
+      if (config.example_prefilled && config.example_prefilled.text) {
+        const example = createElement('div', 'cloze-example', config.example_prefilled.text);
+        wrapper.append(example);
+      }
+      let selectedTokenId = null;
+      const tokensById = new Map();
+      const tokenEls = new Map();
+      const slotsById = new Map();
+      const slotToken = new Map();
+      const lockedSlots = new Set();
+      const textWrap = createElement('p', 'cloze-text');
+      function normalizeTokenText(text) {
+        if (normalize(text) === 'traveled') {
+          return 'travelled';
+        }
+        return normalize(text);
+      }
+      function getScore() {
+        return lockedSlots.size;
+      }
+      function refreshProgress() {
+        progress.textContent = `${getScore()} / ${config.max_score} correct`;
+      }
+      function markTokenUsed(tokenId, used) {
+        const tokenEl = tokenEls.get(tokenId);
+        if (!tokenEl) {
+          return;
+        }
+        tokenEl.classList.toggle('used', used);
+        tokenEl.disabled = used;
+      }
+      function clearSlot(slotId) {
+        const slot = slotsById.get(slotId);
+        if (!slot || lockedSlots.has(slotId)) {
+          return;
+        }
+        const existingTokenId = slotToken.get(slotId);
+        if (existingTokenId) {
+          markTokenUsed(existingTokenId, false);
+          slotToken.delete(slotId);
+        }
+        slot.textContent = '_____';
+        slot.dataset.tokenId = '';
+        slot.classList.remove('state-incorrect', 'state-correct', 'filled');
+      }
+      function placeToken(tokenId, slotId) {
+        const slot = slotsById.get(slotId);
+        if (!slot || lockedSlots.has(slotId)) {
+          return;
+        }
+        const token = tokensById.get(tokenId);
+        if (!token) {
+          return;
+        }
+        const previousOwner = [...slotToken.entries()].find(([, t]) => t === tokenId);
+        if (previousOwner) {
+          clearSlot(previousOwner[0]);
+        }
+        const existingTokenId = slotToken.get(slotId);
+        if (existingTokenId) {
+          markTokenUsed(existingTokenId, false);
+        }
+        slot.textContent = token.text;
+        slot.dataset.tokenId = tokenId;
+        slot.classList.add('filled');
+        slot.classList.remove('state-incorrect');
+        slotToken.set(slotId, tokenId);
+        markTokenUsed(tokenId, true);
+      }
+      config.text_parts.forEach((part) => {
+        if (part.type === 'text') {
+          textWrap.append(document.createTextNode(part.content));
+          return;
+        }
+        const slot = createElement('span', 'cloze-slot', '_____');
+        slot.dataset.slotId = part.id;
+        slot.dataset.answer = part.answer;
+        slot.setAttribute('role', 'button');
+        slot.setAttribute('aria-label', `Drop word into slot ${part.id}`);
+        slot.addEventListener('click', () => {
+          if (lockedSlots.has(part.id)) {
+            return;
+          }
+          if (slotToken.get(part.id)) {
+            clearSlot(part.id);
+            return;
+          }
+          if (selectedTokenId) {
+            placeToken(selectedTokenId, part.id);
+            selectedTokenId = null;
+            tokenEls.forEach((el) => el.classList.remove('selected'));
+          }
+        }, { signal });
+        makeDropZone(slot, {
+          signal,
+          accepts: () => true,
+          onDrop: (tokenId) => {
+            placeToken(tokenId, part.id);
+          }
+        });
+        slotsById.set(part.id, slot);
+        textWrap.append(slot);
+      });
+      wrapper.append(textWrap);
+      const bank = createElement('section', 'word-bank');
+      const bankTitle = createElement('h4', '', 'Word Bank');
+      const bankList = createElement('div', 'word-bank-list');
+      bankList.id = `${config.id}-word-bank`;
+      const bankTokens = config.shuffle ? shuffleArray(config.word_bank) : config.word_bank;
+      bankTokens.forEach((token) => {
+        tokensById.set(token.id, token);
+        const tokenBtn = createElement('button', 'bank-token', token.text);
+        tokenBtn.type = 'button';
+        tokenBtn.dataset.tokenId = token.id;
+        tokenBtn.setAttribute('aria-label', `Token ${token.text}`);
+        tokenBtn.addEventListener('click', () => {
+          if (tokenBtn.classList.contains('used')) {
+            return;
+          }
+          const wasSelected = tokenBtn.classList.contains('selected');
+          tokenEls.forEach((el) => el.classList.remove('selected'));
+          if (!wasSelected) {
+            tokenBtn.classList.add('selected');
+            selectedTokenId = token.id;
+          } else {
+            selectedTokenId = null;
+          }
+        }, { signal });
+        makeDraggable(tokenBtn, {
+          signal,
+          onDragStart: (el) => {
+            if (el.classList.contains('used')) {
+              selectedTokenId = null;
+              return;
+            }
+            selectedTokenId = el.dataset.tokenId;
+            tokenEls.forEach((n) => n.classList.remove('selected'));
+            el.classList.add('selected');
+          },
+          onDragEnd: (el, event, dropTarget) => {
+            el.classList.remove('selected');
+            if (dropTarget) {
+              const slot = dropTarget.closest('.cloze-slot');
+              if (slot) {
+                placeToken(el.dataset.tokenId, slot.dataset.slotId);
+              }
+            }
+            selectedTokenId = null;
+          }
+        });
+        tokenEls.set(token.id, tokenBtn);
+        bankList.append(tokenBtn);
+      });
+      bank.append(bankTitle, bankList);
+      wrapper.append(bank);
+      const globalHint = config.hint ? buildHintBlock('check-1', config.hint.text, signal) : null;
+      if (globalHint) {
+        wrapper.append(globalHint.wrap);
+      }
+      const footer = createElement('footer', 'activity-footer');
+      const controls = createElement('div', '');
+      controls.style.display = 'inline-flex';
+      controls.style.gap = '8px';
+      const checkBtn = createElement('button', 'esl-btn primary', 'Check');
+      checkBtn.type = 'button';
+      checkBtn.setAttribute('aria-label', 'Check cloze answers');
+      const resetBtn = createElement('button', 'esl-btn', 'Reset Activity');
+      resetBtn.type = 'button';
+      resetBtn.setAttribute('aria-label', 'Reset cloze activity');
+      const nextBtn = createElement('button', 'esl-btn', 'Next Activity');
+      nextBtn.type = 'button';
+      nextBtn.dataset.next = config.next_tab || '';
+      nextBtn.setAttribute('aria-label', 'Go to next activity');
+      checkBtn.addEventListener('click', () => {
+        const pending = [...slotsById.keys()].filter((slotId) => !slotToken.get(slotId) && !lockedSlots.has(slotId));
+        if (pending.length > 0) {
+          setMessage(feedback, 'Please place words in all blanks before checking.', 'error');
+          return;
+        }
+        const attemptNumber = tracker.record('check-1');
+        let changed = false;
+        slotsById.forEach((slot, slotId) => {
+          if (lockedSlots.has(slotId)) {
+            return;
+          }
+          const tokenId = slotToken.get(slotId);
+          const token = tokenId ? tokensById.get(tokenId) : null;
+          const user = token ? token.text : '';
+          const answer = slot.dataset.answer;
+          const ok = normalizeTokenText(user) === normalizeTokenText(answer);
+          if (ok) {
+            slot.classList.add('state-correct', 'locked');
+            slot.classList.remove('state-incorrect');
+            lockedSlots.add(slotId);
+            changed = true;
+          } else {
+            slot.classList.add('state-incorrect');
+            changed = true;
+            window.setTimeout(() => {
+              clearSlot(slotId);
+            }, 800);
+          }
+        });
+        refreshProgress();
+        const score = getScore();
+        const partial = score > 0 && score < config.max_score;
+        if (changed) {
+          if (score === config.max_score) {
+            setMessage(feedback, 'Excellent! All answers are correct.', 'success');
+          } else {
+            setMessage(feedback, `${score} of ${config.max_score} correct.`, partial ? 'error' : null);
+          }
+        }
+        if (globalHint && tracker.shouldShowHint('check-1') && score < config.max_score) {
+          globalHint.wrap.classList.remove('hidden');
+        }
+        if (globalHint && tracker.isExhausted('check-1') && score < config.max_score) {
+          globalHint.hintBtn.classList.add('hidden');
+          globalHint.answerBtn.classList.remove('hidden');
+        }
+        fireAttempt(wrapper, {
+          activity_id: config.id,
+          item_id: 'check-1',
+          activity_type: config.activity_type,
+          renderer: config.renderer,
+          cefr: config.cefr,
+          difficulty: config.difficulty,
+          feedback_mode: config.feedback_mode,
+          is_correct: score === config.max_score,
+          is_partial: partial,
+          attempt_number: attemptNumber,
+          score,
+          max_score: config.max_score,
+          time_on_item_ms: timer.elapsed()
+        });
+        updateActivityScore(config.id, score, config.max_score);
+      }, { signal });
+      if (globalHint) {
+        globalHint.answerBtn.addEventListener('click', () => {
+          slotsById.forEach((slot, slotId) => {
+            if (lockedSlots.has(slotId)) {
+              return;
+            }
+            slot.textContent = slot.dataset.answer;
+            slot.classList.remove('state-incorrect');
+            slot.classList.add('state-correct', 'locked');
+            lockedSlots.add(slotId);
+          });
+          setMessage(feedback, 'Answers revealed. Check each form carefully.', 'error');
+          refreshProgress();
+        }, { signal });
+      }
+      resetBtn.addEventListener('click', () => {
+        scope.controller.abort();
+        renderClozeBank(container, config);
+        updateActivityScore(config.id, 0, config.max_score, false);
+      }, { signal });
+      nextBtn.addEventListener('click', () => {
+        if (config.next_tab) {
+          activateTab(config.next_tab);
+        }
+      }, { signal });
+      controls.append(checkBtn, resetBtn);
+      footer.append(controls, nextBtn);
+      wrapper.append(footer);
+      container.append(wrapper);
+      updateActivityScore(config.id, 0, config.max_score, false);
+    }
+    function renderGapFill(container, config) {
+      const scope = prepareActivityContainer(container);
+      const signal = scope.signal;
+      const tracker = createAttemptTracker(config);
+      const timer = createTimer();
+      timer.begin();
+      const wrapper = createElement('article', 'gap-fill-container');
+      wrapper.dataset.activityId = config.id;
+      const head = createElement('header', 'activity-head');
+      const title = createElement('h2', 'activity-title', config.title);
+      const instruction = createElement('p', 'activity-instruction', config.instruction);
+      const progress = createElement('p', 'activity-progress', `0 / ${config.max_score} sentences correct`);
+      const feedback = createElement('p', 'feedback-inline');
+      head.append(title, instruction, progress, feedback);
+      wrapper.append(head);
+      if (config.example_prefilled && config.example_prefilled.text) {
+        const example = createElement('div', 'gap-example', config.example_prefilled.text);
+        wrapper.append(example);
+      }
+      const layout = createElement('section', 'gap-layout');
+      const list = createElement('div', 'gap-list');
+      const ref = createElement('aside', 'gap-reference');
+      ref.setAttribute('aria-label', 'Grammar reference');
+      config.reference_lines.forEach((line) => {
+        const p = createElement('p', '', line);
+        p.style.margin = '0 0 6px';
+        ref.append(p);
+      });
+      const inputs = [];
+      function createGapInput(blank, sentenceId, index) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = `gap-input ${blank.short ? 'short' : ''}`.trim();
+        input.dataset.blankId = blank.id;
+        input.dataset.sentenceId = sentenceId;
+        input.dataset.answer = blank.answer;
+        input.setAttribute('aria-label', `Fill in blank ${sentenceId}-${index + 1}`);
+        const largest = blank.accepted_answers.reduce((m, a) => Math.max(m, a.length), 0);
+        input.size = Math.max(largest + 2, 6);
+        const label = createElement('label', 'visually-hidden', `Blank ${sentenceId}-${index + 1}`);
+        label.setAttribute('for', `${config.id}-${blank.id}`);
+        input.id = `${config.id}-${blank.id}`;
+        inputs.push({
+          input,
+          label,
+          blank,
+          sentenceId,
+          correct: false
+        });
+        return { label, input };
+      }
+      config.items.forEach((item) => {
+        const row = createElement('div', 'gap-row');
+        row.dataset.itemId = item.id;
+        const segment0 = document.createTextNode(item.segments[0]);
+        row.append(segment0);
+        const b1 = createGapInput(item.blanks[0], item.id, 0);
+        row.append(b1.label, b1.input);
+        row.append(document.createTextNode(item.segments[1]));
+        const b2 = createGapInput(item.blanks[1], item.id, 1);
+        row.append(b2.label, b2.input);
+        row.append(document.createTextNode(item.segments[2]));
+        const symbol = createElement('span', 'gap-symbol', item.symbol);
+        row.append(symbol);
+        list.append(row);
+      });
+      layout.append(list, ref);
+      wrapper.append(layout);
+      const globalHint = config.hint ? buildHintBlock('check-1', config.hint.text, signal) : null;
+      if (globalHint) {
+        wrapper.append(globalHint.wrap);
+      }
+      function sentenceScore() {
+        let done = 0;
+        config.items.forEach((item) => {
+          const sentenceInputs = inputs.filter((it) => it.sentenceId === item.id);
+          const allCorrect = sentenceInputs.every((it) => it.correct);
+          if (allCorrect) {
+            done += 1;
+          }
+        });
+        return done;
+      }
+      function refreshProgress() {
+        progress.textContent = `${sentenceScore()} / ${config.max_score} sentences correct`;
+      }
+      const footer = createElement('footer', 'activity-footer');
+      const controls = createElement('div', '');
+      controls.style.display = 'inline-flex';
+      controls.style.gap = '8px';
+      const checkBtn = createElement('button', 'esl-btn primary', 'Check All');
+      checkBtn.type = 'button';
+      checkBtn.setAttribute('aria-label', 'Check all gap answers');
+      const resetBtn = createElement('button', 'esl-btn', 'Reset Activity');
+      resetBtn.type = 'button';
+      resetBtn.setAttribute('aria-label', 'Reset gap fill activity');
+      const finishBtn = createElement('button', 'esl-btn', 'Finish Session');
+      finishBtn.type = 'button';
+      finishBtn.setAttribute('aria-label', 'Show final session score');
+      checkBtn.addEventListener('click', () => {
+        const hasEmpty = inputs.some((entry) => !entry.correct && !entry.input.value.trim());
+        if (hasEmpty) {
+          setMessage(feedback, 'Please type an answer in every blank before checking.', 'error');
+          return;
+        }
+        const attemptNumber = tracker.record('check-1');
+        let anyPartial = false;
+        inputs.forEach((entry) => {
+          if (entry.correct) {
+            return;
+          }
+          const value = entry.input.value;
+          const ok = isCorrect(value, entry.blank.accepted_answers);
+          if (ok) {
+            entry.correct = true;
+            entry.input.disabled = true;
+            entry.input.classList.remove('state-incorrect', 'state-partial');
+            entry.input.classList.add('state-correct');
+            return;
+          }
+          const partial = isPartial(value, entry.blank.answer);
+          if (partial) {
+            anyPartial = true;
+            entry.input.classList.remove('state-incorrect');
+            entry.input.classList.add('state-partial');
+            window.setTimeout(() => {
+              entry.input.classList.remove('state-partial');
+              entry.input.value = '';
+            }, 750);
+          } else {
+            entry.input.classList.remove('state-partial');
+            entry.input.classList.add('state-incorrect');
+            window.setTimeout(() => {
+              entry.input.classList.remove('state-incorrect');
+              entry.input.value = '';
+            }, 750);
+          }
+        });
+        const score = sentenceScore();
+        refreshProgress();
+        if (score === config.max_score) {
+          setMessage(feedback, 'Great! Every sentence is complete.', 'success');
+        } else if (anyPartial) {
+          setMessage(feedback, 'Close! Check spelling and try again.', 'error');
+        } else {
+          setMessage(feedback, `${score} of ${config.max_score} sentences correct.`, 'error');
+        }
+        if (globalHint && tracker.shouldShowHint('check-1') && score < config.max_score) {
+          globalHint.wrap.classList.remove('hidden');
+        }
+        if (globalHint && tracker.isExhausted('check-1') && score < config.max_score) {
+          globalHint.hintBtn.classList.add('hidden');
+          globalHint.answerBtn.classList.remove('hidden');
+        }
+        fireAttempt(wrapper, {
+          activity_id: config.id,
+          item_id: 'check-1',
+          activity_type: config.activity_type,
+          renderer: config.renderer,
+          cefr: config.cefr,
+          difficulty: config.difficulty,
+          feedback_mode: config.feedback_mode,
+          is_correct: score === config.max_score,
+          is_partial: score > 0 && score < config.max_score,
+          attempt_number: attemptNumber,
+          score,
+          max_score: config.max_score,
+          time_on_item_ms: timer.elapsed()
+        });
+        updateActivityScore(config.id, score, config.max_score);
+      }, { signal });
+      if (globalHint) {
+        globalHint.answerBtn.addEventListener('click', () => {
+          inputs.forEach((entry) => {
+            entry.input.value = entry.blank.answer;
+            entry.input.disabled = true;
+            entry.correct = true;
+            entry.input.classList.remove('state-incorrect', 'state-partial');
+            entry.input.classList.add('state-correct');
+          });
+          refreshProgress();
+          setMessage(feedback, 'Answers revealed. Review each structure.', 'error');
+        }, { signal });
+      }
+      resetBtn.addEventListener('click', () => {
+        scope.controller.abort();
+        renderGapFill(container, config);
+        updateActivityScore(config.id, 0, config.max_score, false);
+      }, { signal });
+      finishBtn.addEventListener('click', () => {
+        maybeRevealFinalResult();
+      }, { signal });
+      controls.append(checkBtn, resetBtn);
+      footer.append(controls, finishBtn);
+      wrapper.append(footer);
+      container.append(wrapper);
+      updateActivityScore(config.id, 0, config.max_score, false);
+    }
+    const activities = [
+      // CoT - quiz - Yesterday's Morning
+      // 1. OBJETIVO: Completar um paragrafo narrativo em contexto com opcoes corretas do Simple Past.
+      // 2. DOM: article.quiz-container, p.quiz-paragraph, span.inline-options, button.quiz-option, p.activity-progress, p.feedback-inline, footer com botoes.
+      // 3. EVENTOS: click em quiz-option (handleChoice), click em hint-btn, click em show-answer-btn, click reset, click next.
+      // 4. EDGE CASES: tentativa errada repetida, esgotamento de tentativas, exibicao de dica, revelar resposta sem travar interface, mobile tap.
+      // 5. TOKENS + EVENT: usa tokens de cor/raio/sombra e dispara esl:attempt por item q1..q8.
+      {
+        id: 'act-1',
+        activity_type: 'quiz',
+        renderer: 'renderQuiz',
+        cefr: 'A2',
+        difficulty: 2,
+        feedback_mode: 'instant_check',
+        attempts_max: 2,
+        shuffle: false,
+        hint: {
+          text: 'Look for past simple forms and there was/were negatives.',
+          trigger: 'after_first_wrong_attempt'
+        },
+        title: "Activity 1 - Yesterday's Morning",
+        instruction: 'Circle the correct option to complete the story.',
+        layout: 'paragraph',
+        paragraph_segments: [
+          'Yesterday ',
+          ' well! I ',
+          ' late, so I ',
+          ' time for a shower. Also, there ',
+          ' milk in the fridge! I ',
+          ' the house and ',
+          ' for the bus, but there ',
+          ' buses for 30 minutes! My teacher was not very happy when I finally ',
+          ' into the classroom.'
+        ],
+        items: [
+          {
+            id: 'q1',
+            answer_mode: 'single',
+            choices: ['there was not', "didn't start", 'not started'],
+            answer_index: 1,
+            hint: { text: 'You need a past simple verb phrase after Yesterday.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q2',
+            answer_mode: 'single',
+            choices: ['get up', 'did get up', 'got up'],
+            answer_index: 2,
+            hint: { text: 'The sentence needs a simple past form.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q3',
+            answer_mode: 'single',
+            choices: ["didn't have", 'was not', 'had not'],
+            answer_index: 0,
+            hint: { text: 'Use did not + base verb for negative past.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q4',
+            answer_mode: 'single',
+            choices: ['had not any', 'was not any', 'was some'],
+            answer_index: 1,
+            hint: { text: 'Milk is uncountable. Use any in negative form.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q5',
+            answer_mode: 'single',
+            choices: ['leaved', 'went', 'left'],
+            answer_index: 2,
+            hint: { text: 'This is the irregular past of leave.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q6',
+            answer_mode: 'single',
+            choices: ['waited', 'wait', 'waiting'],
+            answer_index: 0,
+            hint: { text: 'After and, use another past verb.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q7',
+            answer_mode: 'single',
+            choices: ['was not any', 'were some', "weren't any"],
+            answer_index: 2,
+            hint: { text: 'Buses is plural and this is negative.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q8',
+            answer_mode: 'single',
+            choices: ['came', "didn't come", 'come'],
+            answer_index: 0,
+            hint: { text: 'Finally introduces what happened in the past.', trigger: 'after_first_wrong_attempt' }
+          }
+        ],
+        scaffold_steps: null,
+        media: null,
+        max_score: 8,
+        points_label: '8 POINTS',
+        next_tab: 'act-2'
+      },
+      // CoT - quiz - Choose the Correct Form
+      // 1. OBJETIVO: Selecionar a forma correta em 7 sentencas com foco em be/did e there was/were.
+      // 2. DOM: ol.quiz-list, li.quiz-list-item, span.inline-options, button.quiz-option, hint blocks por item.
+      // 3. EVENTOS: click nas opcoes, click hint/show-answer, click reset, click next.
+      // 4. EDGE CASES: item sem resposta correta selecionada apos erro, tentativas maximas, frases longas em mobile.
+      // 5. TOKENS + EVENT: utiliza tokens globais e dispara esl:attempt por q1..q7.
+      {
+        id: 'act-2',
+        activity_type: 'quiz',
+        renderer: 'renderQuiz',
+        cefr: 'A2',
+        difficulty: 2,
+        feedback_mode: 'instant_check',
+        attempts_max: 2,
+        shuffle: false,
+        hint: {
+          text: 'Check if the sentence needs did, was/were, or there.',
+          trigger: 'after_first_wrong_attempt'
+        },
+        title: 'Activity 2 - Choose the Correct Form',
+        instruction: 'Choose the correct word or phrase to complete each sentence.',
+        layout: 'sentences',
+        items: [
+          {
+            id: 'q1',
+            answer_mode: 'single',
+            lead: '',
+            tail: ' you at the gym last night?',
+            choices: ['Did', 'Were'],
+            answer_index: 1,
+            hint: { text: 'This sentence uses be in the past.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q2',
+            answer_mode: 'single',
+            lead: 'I ',
+            tail: ' to the supermarket yesterday.',
+            choices: ['went', 'was'],
+            answer_index: 0,
+            hint: { text: 'Go has an irregular past form.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q3',
+            answer_mode: 'single',
+            lead: '',
+            tail: ' were some plates on the table.',
+            choices: ['They', 'There'],
+            answer_index: 1,
+            hint: { text: 'Existence in English starts with there.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q4',
+            answer_mode: 'single',
+            lead: "Kerem's brother ",
+            tail: ' at school this morning.',
+            choices: ['was', 'were'],
+            answer_index: 0,
+            hint: { text: 'Brother is singular.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q5',
+            answer_mode: 'single',
+            lead: '',
+            tail: ' early yesterday?',
+            choices: ['You left', 'Did you leave'],
+            answer_index: 1,
+            hint: { text: 'Questions with lexical verbs use did.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q6',
+            answer_mode: 'single',
+            lead: 'Stella ',
+            tail: ' her ticket.',
+            choices: ["hadn't", "didn't have"],
+            answer_index: 1,
+            hint: { text: 'Negative with have in past uses did not.', trigger: 'after_first_wrong_attempt' }
+          },
+          {
+            id: 'q7',
+            answer_mode: 'single',
+            lead: '',
+            tail: ' exams?',
+            choices: ['There were some', 'Were there any'],
+            answer_index: 1,
+            hint: { text: 'This is a plural question form.', trigger: 'after_first_wrong_attempt' }
+          }
+        ],
+        scaffold_steps: null,
+        media: null,
+        max_score: 7,
+        points_label: '7 POINTS',
+        next_tab: 'act-3'
+      },
+      // CoT - true_false - Correct or Incorrect?
+      // 1. OBJETIVO: Identificar sentencas corretas/incorretas e refletir sobre correcoes.
+      // 2. DOM: article.tf-row por item, botoes tf-btn, nota de erro, textarea opcional para frases incorretas.
+      // 3. EVENTOS: click em Correct/Incorrect, reset, next.
+      // 4. EDGE CASES: clique repetido no mesmo item, tentativas maximas, exibicao tardia da nota, campo opcional sem validacao.
+      // 5. TOKENS + EVENT: usa estados globais e dispara esl:attempt para tf-1..tf-6.
+      {
+        id: 'act-3',
+        activity_type: 'true_false',
+        renderer: 'renderTrueFalse',
+        cefr: 'A2',
+        difficulty: 2,
+        feedback_mode: 'instant_check',
+        attempts_max: 2,
+        shuffle: false,
+        hint: {
+          text: 'Review question order and countable vs uncountable nouns.',
+          trigger: 'after_first_wrong_attempt'
+        },
+        title: 'Activity 3 - Correct or Incorrect?',
+        instruction: 'Is the sentence correct (✓) or incorrect (✗)?',
+        items: [
+          {
+            id: 'tf-1',
+            text: 'There were not any food for the dog.',
+            answer: false,
+            error_note: 'food is uncountable: use There was not any food.'
+          },
+          {
+            id: 'tf-2',
+            text: 'You feel sad after the film yesterday?',
+            answer: false,
+            error_note: 'Use Did you feel ... for a simple past question.'
+          },
+          {
+            id: 'tf-3',
+            text: 'I did not see Mike last night.',
+            answer: true,
+            error_note: ''
+          },
+          {
+            id: 'tf-4',
+            text: 'What said your mum?',
+            answer: false,
+            error_note: 'Question order: What did your mum say?'
+          },
+          {
+            id: 'tf-5',
+            text: 'Josh sent you a message this morning.',
+            answer: true,
+            error_note: ''
+          },
+          {
+            id: 'tf-6',
+            text: 'Our team played well but we did not win.',
+            answer: true,
+            error_note: ''
+          }
+        ],
+        scaffold_steps: null,
+        media: null,
+        max_score: 6,
+        points_label: '6 POINTS',
+        next_tab: 'act-4'
+      },
+      // CoT - cloze_bank - Past Simple Verbs
+      // 1. OBJETIVO: Preencher lacunas com banco de palavras do past simple com suporte visual.
+      // 2. DOM: p.cloze-text com spans.cloze-slot, section.word-bank com button.bank-token, botoes check/reset/next.
+      // 3. EVENTOS: click token, dragstart/dragend/pointerdown/move/up, drop em slot, click slot para desfazer, click check/reset.
+      // 4. EDGE CASES: lacunas vazias no check, token usado em slot anterior, reset total via AbortController, tentativa parcial.
+      // 5. TOKENS + EVENT: usa estados e dispara esl:attempt global check-1 com is_partial.
+      {
+        id: 'act-4',
+        activity_type: 'cloze_bank',
+        renderer: 'renderClozeBank',
+        cefr: 'A2',
+        difficulty: 3,
+        feedback_mode: 'submit_check',
+        attempts_max: 3,
+        shuffle: true,
+        hint: {
+          text: 'Watch irregular verbs: sit -> sat, feel -> felt, see -> saw.',
+          trigger: 'after_first_wrong_attempt'
+        },
+        title: 'Activity 4 - Past Simple Verbs',
+        instruction: 'Complete the sentences with the past simple. Use the words in the box.',
+        text_parts: [
+          { type: 'text', content: '2) Where ' },
+          { type: 'slot', id: 'slot-2', answer: 'did you put' },
+          { type: 'text', content: ' the scissors?  3) I ' },
+          { type: 'slot', id: 'slot-3a', answer: 'sat' },
+          { type: 'text', content: ' down because I ' },
+          { type: 'slot', id: 'slot-3b', answer: 'felt' },
+          { type: 'text', content: ' tired.  4) Jack ' },
+          { type: 'slot', id: 'slot-4', answer: 'studied' },
+          { type: 'text', content: ' all evening.  5) We ' },
+          { type: 'slot', id: 'slot-5', answer: "didn't find" },
+          { type: 'text', content: ' the blanket.  6) They ' },
+          { type: 'slot', id: 'slot-6', answer: 'travelled' },
+          { type: 'text', content: ' all over Europe.  7) ' },
+          { type: 'slot', id: 'slot-7', answer: 'Did Chloe see' },
+          { type: 'text', content: ' your message last night?  8) Liam ' },
+          { type: 'slot', id: 'slot-8', answer: 'did' },
+          { type: 'text', content: ' his homework this morning.' }
+        ],
+        word_bank: [
+          { id: 'token-saw', text: 'saw' },
+          { id: 'token-did-you-put', text: 'did you put' },
+          { id: 'token-sat', text: 'sat' },
+          { id: 'token-felt', text: 'felt' },
+          { id: 'token-studied', text: 'studied' },
+          { id: 'token-did-not-find', text: "didn't find" },
+          { id: 'token-travelled', text: 'travelled' },
+          { id: 'token-did-chloe-see', text: 'Did Chloe see' },
+          { id: 'token-did', text: 'did' }
+        ],
+        example_prefilled: {
+          slot_id: null,
+          text: 'Example: I saw a good film last night. (not editable)'
+        },
+        scaffold_steps: null,
+        media: null,
+        max_score: 8,
+        points_label: '8 POINTS',
+        next_tab: 'act-5'
+      },
+      // CoT - gap_fill - There Was / There Were
+      // 1. OBJETIVO: Digitar be + a/an/some/any em duas lacunas por sentenca com apoio de quadro de referencia.
+      // 2. DOM: div.gap-list com div.gap-row, input.gap-input x2 por item, aside.gap-reference sticky, botoes check/reset/finish.
+      // 3. EVENTOS: click check all, reset, finish, digitacao em inputs e validacao submit_check.
+      // 4. EDGE CASES: input vazio, resposta parcialmente correta, limites de tentativa, revelar respostas apos esgotar.
+      // 5. TOKENS + EVENT: usa tokens visuais e dispara esl:attempt global check-1 com score por sentenca.
+      {
+        id: 'act-5',
+        activity_type: 'gap_fill',
+        renderer: 'renderGapFill',
+        cefr: 'A2',
+        difficulty: 3,
+        feedback_mode: 'submit_check',
+        attempts_max: 3,
+        shuffle: false,
+        hint: null,
+        title: 'Activity 5 - There Was / There Were',
+        instruction: "Complete each sentence with the correct form of 'be' and a/an/some/any.",
+        reference_lines: [
+          'There WAS a/an -> singular (+)',
+          'There WERE some -> plural (+)',
+          'There WAS NOT any -> singular (-)',
+          'There WERE NOT any -> plural (-)',
+          'WAS there a/an/any? -> singular (?)',
+          'WERE there any? -> plural (?)'
+        ],
+        example_prefilled: {
+          text: 'Example: There was not a pillow on the bed. (-) (not editable)'
+        },
+        items: [
+          {
+            id: 'gf-2',
+            segments: ['', ' there ', ' space on the train?'],
+            symbol: '(?)',
+            blanks: [
+              {
+                id: 'gf-2-a',
+                answer: 'Was',
+                accepted_answers: ['was', 'Was'],
+                short: true
+              },
+              {
+                id: 'gf-2-b',
+                answer: 'any',
+                accepted_answers: ['any', 'Any'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-3',
+            segments: ['There ', ' ', ' people outside.'],
+            symbol: '(+)',
+            blanks: [
+              {
+                id: 'gf-3-a',
+                answer: 'were',
+                accepted_answers: ['were', 'Were'],
+                short: true
+              },
+              {
+                id: 'gf-3-b',
+                answer: 'some',
+                accepted_answers: ['some', 'Some'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-4',
+            segments: ['There ', ' ', ' time to have breakfast.'],
+            symbol: '(-)',
+            blanks: [
+              {
+                id: 'gf-4-a',
+                answer: "wasn't",
+                accepted_answers: ["wasn't", 'was not', "Wasn't", 'Was not'],
+                short: false
+              },
+              {
+                id: 'gf-4-b',
+                answer: 'any',
+                accepted_answers: ['any', 'Any'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-5',
+            segments: ['', ' there ', ' plates in the kitchen?'],
+            symbol: '(?)',
+            blanks: [
+              {
+                id: 'gf-5-a',
+                answer: 'Were',
+                accepted_answers: ['were', 'Were'],
+                short: true
+              },
+              {
+                id: 'gf-5-b',
+                answer: 'any',
+                accepted_answers: ['any', 'Any'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-6',
+            segments: ['There ', ' ', ' ice cream for dessert.'],
+            symbol: '(+)',
+            blanks: [
+              {
+                id: 'gf-6-a',
+                answer: 'was',
+                accepted_answers: ['was', 'Was'],
+                short: true
+              },
+              {
+                id: 'gf-6-b',
+                answer: 'some',
+                accepted_answers: ['some', 'Some'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-7',
+            segments: ['', ' there ', ' apple in your bag?'],
+            symbol: '(?)',
+            blanks: [
+              {
+                id: 'gf-7-a',
+                answer: 'Was',
+                accepted_answers: ['was', 'Was'],
+                short: true
+              },
+              {
+                id: 'gf-7-b',
+                answer: 'an',
+                accepted_answers: ['an', 'An'],
+                short: true
+              }
+            ]
+          },
+          {
+            id: 'gf-8',
+            segments: ['There ', ' ', ' clouds in the sky.'],
+            symbol: '(-)',
+            blanks: [
+              {
+                id: 'gf-8-a',
+                answer: "weren't",
+                accepted_answers: ["weren't", 'were not', "Weren't", 'Were not'],
+                short: false
+              },
+              {
+                id: 'gf-8-b',
+                answer: 'any',
+                accepted_answers: ['any', 'Any'],
+                short: true
+              }
+            ]
+          }
+        ],
+        scaffold_steps: {
+          step1: 'modeled',
+          step2: 'guided',
+          step3: 'independent'
+        },
+        media: null,
+        max_score: 7,
+        points_label: '7 POINTS',
+        next_tab: null
+      }
+    ];
+    const rendererMap = {
+      quiz: renderQuiz,
+      true_false: renderTrueFalse,
+      cloze_bank: renderClozeBank,
+      gap_fill: renderGapFill
+    };
+    function activateTab(tabId) {
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-content');
+      tabButtons.forEach((btn) => {
+        const active = btn.dataset.tab === tabId;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      tabPanels.forEach((panel) => {
+        panel.classList.toggle('active', panel.id === tabId);
+      });
+    }
+    function renderAllActivities(configs) {
+      configs.forEach((config) => {
+        const panel = document.getElementById(config.id);
+        if (!panel) {
+          return;
+        }
+        const mount = panel.querySelector('.activity-mount');
+        if (!mount) {
+          return;
+        }
+        const renderer = rendererMap[config.activity_type];
+        if (!renderer) {
+          mount.textContent = `Renderer missing: ${config.activity_type}`;
+          return;
+        }
+        renderer(mount, config);
+      });
+    }
+    function boot() {
+      activityConfigs = activities;
+      sessionState = createSessionState(activityConfigs);
+      sessionState.refreshProgressBar();
+      if (window._eslAppController) {
+        window._eslAppController.abort();
+      }
+      const appController = new AbortController();
+      window._eslAppController = appController;
+      const appSignal = appController.signal;
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activateTab(btn.dataset.tab);
+        }, { signal: appSignal });
+      });
+      const retryBtn = document.getElementById('retry-btn');
+      retryBtn.addEventListener('click', () => {
+        document.getElementById('final-result').classList.add('hidden');
+        boot();
+        activateTab('act-1');
+      }, { signal: appSignal });
+      // === Agente 5: Confetti on perfect score (adult) ===
+      window._eslPerfectConfettiFired = false;
+      document.addEventListener('esl:attempt', () => {
+        if (typeof confetti !== 'function') {
+          return;
+        }
+        const panel = document.getElementById('final-result');
+        if (!panel || panel.classList.contains('hidden')) {
+          return;
+        }
+        if (window._eslPerfectConfettiFired) {
+          return;
+        }
+        const result = sessionState.getTotalScore();
+        if (!result || result.max === 0 || result.score !== result.max) {
+          return;
+        }
+        window._eslPerfectConfettiFired = true;
+        window.setTimeout(() => {
+          confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.7 }
+          });
+        }, 200);
+      }, { signal: appSignal });
+      renderAllActivities(activityConfigs);
+      activateTab('act-1');
+    }
+    boot();
+  </script>
+</body>
+</html>
