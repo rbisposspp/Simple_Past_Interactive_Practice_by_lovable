@@ -1162,7 +1162,10 @@
           return [...state.values()].every((v) => v.attempted);
         },
         refreshProgressBar() {
-          document.querySelectorAll('.progress-dot').forEach((dot) => {
+          if (!this._progressDots) {
+            this._progressDots = document.querySelectorAll('.progress-dot');
+          }
+          this._progressDots.forEach((dot) => {
             const id = dot.dataset.activity;
             const s = state.get(id);
             dot.classList.toggle('completed', s?.completed || false);
