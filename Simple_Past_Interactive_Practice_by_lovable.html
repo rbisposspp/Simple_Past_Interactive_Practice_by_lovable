@@ -1069,6 +1069,7 @@
     function isPartial(userInput, correctAnswer) {
       const u = normalize(userInput);
       const c = normalize(correctAnswer);
+      if (!u || !c) return false;
       if (u === c) return false;
       const escapedU = escapeRegExp(u);
       const escapedC = escapeRegExp(c);
