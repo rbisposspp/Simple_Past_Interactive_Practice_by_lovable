@@ -2661,9 +2661,9 @@
       cloze_bank: renderClozeBank,
       gap_fill: renderGapFill
     };
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-content');
     function activateTab(tabId) {
-      const tabButtons = document.querySelectorAll('.tab-btn');
-      const tabPanels = document.querySelectorAll('.tab-content');
       tabButtons.forEach((btn) => {
         const active = btn.dataset.tab === tabId;
         btn.classList.toggle('active', active);
@@ -2701,7 +2701,7 @@
       const appController = new AbortController();
       window._eslAppController = appController;
       const appSignal = appController.signal;
-      document.querySelectorAll('.tab-btn').forEach((btn) => {
+      tabButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
           activateTab(btn.dataset.tab);
         }, { signal: appSignal });
