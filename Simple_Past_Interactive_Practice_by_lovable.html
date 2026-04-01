@@ -1055,14 +1055,26 @@
         .replace(/[.,!?'\"]/g, '')
         .replace(/\s+/g, ' ');
     }
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
     function isCorrect(userInput, acceptedAnswers) {
       const n = normalize(userInput);
-      return acceptedAnswers.some((a) => normalize(a) === n);
+      return acceptedAnswers.some((a) => {
+        const na = normalize(a);
+        const regex = new RegExp('^' + escapeRegExp(na) + '$', 'i');
+        return regex.test(n);
+      });
     }
     function isPartial(userInput, correctAnswer) {
       const u = normalize(userInput);
       const c = normalize(correctAnswer);
-      return (u.includes(c) || c.includes(u)) && u !== c;
+      if (u === c) return false;
+      const escapedU = escapeRegExp(u);
+      const escapedC = escapeRegExp(c);
+      const regexU = new RegExp(escapedU, 'i');
+      const regexC = new RegExp(escapedC, 'i');
+      return regexC.test(u) || regexU.test(c);
     }
     function shuffleArray(arr) {
       const a = [...arr];
